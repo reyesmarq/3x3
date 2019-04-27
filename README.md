@@ -7,8 +7,7 @@ webpack kit for static pages. Compatible with pug, sass and es6.
 - [x] install webpack
 - [x] install dev server - realoding on dev
 - [x] pug support
-- [ ] pug structure
-- [ ] add a page folder (maybe)
+- [x] pug structure
 - [ ] sass support
 - [ ] sass structure
 - [ ] es6 support
@@ -18,7 +17,10 @@ webpack kit for static pages. Compatible with pug, sass and es6.
 - [ ] minify js
 - [ ] develop different behavior depending on the mode prod || dev
 - [x] Erase dist folder on every build
-- [ ] navbar component pug, sass, js
+- [ ] navbar component
+  - [x] pug
+  - [ ] scss
+  - [ ] js
 - [ ] add images minifiers
 - [ ] css autoprefixer - postcss
 - [ ] improve sass output - getting css better
