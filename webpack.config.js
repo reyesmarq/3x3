@@ -1,5 +1,6 @@
 const
   fs = require('fs'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   CleanWebpackPlugin = require('clean-webpack-plugin')
 
@@ -27,6 +28,15 @@ fs.readdirSync(pugDir).forEach(file => {
 })
   
 const config = {
+  entry: {
+    'assets/css/styles.css.ig': './src/scss/main.scss',
+    'assets/js/scripts.js': './src/es/index.js'
+  },
+
+  output: {
+    filename: '[name]'
+  },
+  
   module: {
     rules: [
       {
@@ -35,16 +45,25 @@ const config = {
           { loader: 'html-loader' },
           { loader: 'pug-html-loader', options: { basedir: `${__dirname}/src/pug` } }
         ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          // { loader: 'style-loader' },
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader' },
+          // { loader: 'resolve-url-loader' },
+          { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+        ]
       }
     ]
   },
 
   plugins: [
     new CleanWebpackPlugin(),
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: './src/pug/content/index.pug'
-    // })
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/styles.css'
+    }),
     ...htmlPlugins
   ]
 }

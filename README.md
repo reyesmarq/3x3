@@ -8,7 +8,7 @@ webpack kit for static pages. Compatible with pug, sass and es6.
 - [x] install dev server - realoding on dev
 - [x] pug support
 - [x] pug structure
-- [ ] sass support
+- [x] sass support
 - [ ] sass structure
 - [ ] es6 support
 - [ ] es6 structure
