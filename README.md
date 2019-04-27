@@ -2,6 +2,12 @@
 
 webpack kit for static pages. Compatible with pug, sass and es6.
 
+### Workarounds for some issues
+
+**Absolute path**
+
+If the entry point is geenrated in a subfolder of dist, the assets are imported using relative paths such as `../assets/cs/etc.css`. In order to resolve this, used publicPath in ouput object of webpack config.
+
 ## Todo
 
 - [x] install webpack

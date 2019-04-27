@@ -34,7 +34,8 @@ const config = {
   },
 
   output: {
-    filename: '[name]'
+    filename: '[name]',
+    publicPath: '/'
   },
   
   module: {
