@@ -50,10 +50,8 @@ const config = {
       {
         test: /\.scss$/,
         use: [
-          // { loader: 'style-loader' },
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          // { loader: 'resolve-url-loader' },
           { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
         ]
       }
