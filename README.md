@@ -17,8 +17,8 @@ If the entry point is geenrated in a subfolder of dist, the assets are imported 
 - [x] sass support
 - [x] sass structure
 - [x] absolute path for assets
-- [ ] es6 support
-- [ ] es6 structure
+- [x] es6 support
+- [x] es6 structure
 - [ ] minify html
 - [ ] minify css
 - [ ] minify js

@@ -1,1 +1,3 @@
-console.log('es6/index.js')
+import { navbar } from './components/navbar'
+
+navbar()

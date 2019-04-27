@@ -29,7 +29,7 @@ fs.readdirSync(pugDir).forEach(file => {
   
 const config = {
   entry: {
-    'assets/css/styles.css.ig': './src/scss/main.scss',
+    'styles.css.ig': './src/scss/main.scss',
     'assets/js/scripts.js': './src/es/index.js'
   },
 
@@ -53,6 +53,13 @@ const config = {
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
           { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: 'babel-loader', options: { presets: ['@babel/preset-env' ] } }
         ]
       }
     ]
