@@ -19,22 +19,29 @@ If the entry point is geenrated in a subfolder of dist, the assets are imported 
 - [x] absolute path for assets
 - [x] es6 support
 - [x] es6 structure
+- [ ] develop different behavior depending on the mode prod || dev
 - [ ] minify html
 - [ ] minify css
 - [ ] minify js
-- [ ] develop different behavior depending on the mode prod || dev
 - [x] Erase dist folder on every build
 - [ ] navbar component
   - [x] pug
-  - [ ] scss
-  - [ ] js
-- [ ] add images minifiers
+  - [x] scss
+  - [ ] js activating active on current page dinamically
+- [x] add images minifiers
+  - [x] png pnquant
+  - [x] jpg jpeg-recompress
+  - [x] webp
+  - [x] svg svgo
+  - [x] gif gifsicle
+- [ ] Componentn for responsive images, ig the browser supports webp.
 - [ ] css autoprefixer - postcss
 - [ ] improve sass output - getting css better
 - [ ] documenting what are the postcss plugins implemented
 - [ ] js dom selectors (maybe)
-- [ ] adding responsive breakpoints
-- [ ] adding respoinsive typography
+- [x] adding responsive breakpoints
+- [x] adding respoinsive typography
+- [ ] Adding fluid typography
 - [ ] adding cache busting to css and js sources
 - [ ] add a sitemap componentn in pug so it can be generated automatically
 - [ ] open graph implementation

@@ -2,7 +2,11 @@ const
   fs = require('fs'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
-  CleanWebpackPlugin = require('clean-webpack-plugin')
+  CleanWebpackPlugin = require('clean-webpack-plugin'),
+  CopyWebpackPlugin = require('copy-webpack-plugin'),
+  ImageminWebpackPlugin = require('imagemin-webpack-plugin').default,
+  imageminJpegRecompress = require('imagemin-jpeg-recompress'),
+  imageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 
 let
   htmlPlugins = [],
@@ -67,6 +71,18 @@ const config = {
 
   plugins: [
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([
+      { from: './src/img', to: 'assets/img/[name].[ext]' }
+    ]),
+    new ImageminWebpackPlugin({
+      plugins: [imageminJpegRecompress({ quality: 50 })],
+      pngquant: { quality: 50 },
+      svgo: { quality: 50 },
+      gifsicle: { quality: 50 }
+    }),
+    new imageminWebpWebpackPlugin({
+      config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/styles.css'
     }),
