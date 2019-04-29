@@ -102,15 +102,6 @@ const config = (env, argv) => {
         new CopyWebpackPlugin([
           { from: './src/img', to: 'assets/img/[name].[ext]' }
         ]),
-        new ImageminWebpackPlugin({
-          plugins: [imageminJpegRecompress({ quality: 50 })],
-          pngquant: { quality: 50 },
-          svgo: { quality: 50 },
-          gifsicle: { quality: 50 }
-        }),
-        new imageminWebpWebpackPlugin({
-          config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
-        }),
         new MiniCssExtractPlugin({
           filename: `assets/css/styles.css`
         }),

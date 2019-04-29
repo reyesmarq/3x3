@@ -120,23 +120,24 @@ body {
     - [x] css pretty with sass expanded
     - [x] webpack by default will output dev js
     - [x] No cache busting
+    - [x] add images minifiers
+      - [x] png pnquant
+      - [x] jpg jpeg-recompress
+      - [x] webp => converting jpg and jpeg to wbep
+      - [x] svg svgo
+      - [x] gif gifsicle
   - [ ] production
     - [x] minify html
     - [x] minify css with sass compress
     - [x] webpack by defatul will output minify js
     - [x] adding cache busting to css and js sources
+    - [x] No image minification
 - [x] Erase dist folder on every build
 - [x] navbar component
   - [x] pug
   - [x] scss
   - [x] js activating active on current page dinamically
 - [ ] Componentn for responsive images, ig the browser supports webp.
-- [x] add images minifiers
-  - [x] png pnquant
-  - [x] jpg jpeg-recompress
-  - [x] webp
-  - [x] svg svgo
-  - [x] gif gifsicle
 - [x] improve sass output - getting css better by post css
 - [x] Postcss implementation
   - [x] autoprefixer
