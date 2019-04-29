@@ -115,9 +115,14 @@ body {
 - [x] es6 support
 - [x] es6 structure
 - [ ] develop different behavior depending on the mode prod || dev
-- [ ] minify html
-- [ ] minify css
-- [ ] minify js
+  - [ ] development
+    - [ ] pretty html
+    - [x] css pretty with sass expanded
+    - [ ] webpack by default will output dev js
+  - [ ] production
+    - [ ] minify html
+    - [x] minify css with sass compress
+    - [ ] webpack by defatul will output minify js
 - [x] Erase dist folder on every build
 - [x] navbar component
   - [x] pug

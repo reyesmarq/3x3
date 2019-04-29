@@ -41,73 +41,153 @@ fs.readdirSync(pugDir).forEach(file => {
   }
 })
   
-const config = {
-  entry: {
-    'styles.css.ig': './src/scss/main.scss',
-    'assets/js/scripts.js': './src/es/index.js'
-  },
+const config = (env, argv) => {
 
-  output: {
-    filename: `[name]?${new Date().getTime()}`,
-    publicPath: '/'
-  },
-  
-  module: {
-    rules: [
-      {
-        test: /\.pug$/,
-        use: [
-          { loader: 'html-loader' },
-          { loader: 'pug-html-loader', options: { basedir: `${__dirname}/src/pug` } }
-        ]
+  if (argv.mode != 'production') {
+    console.log('development...')
+    // development
+    return {
+      entry: {
+        'styles.css.ig': './src/scss/main.scss',
+        'assets/js/scripts.js': './src/es/index.js'
       },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: 'css-loader' },
+    
+      output: {
+        filename: `[name]?${new Date().getTime()}`,
+        publicPath: '/'
+      },
+      
+      module: {
+        rules: [
           {
-            loader: 'postcss-loader',
-            options: {
-              autoprefixer: { browser: ['last 2 versions', 'edge 16-18'] },
-              plugins: () => [ autoprefixer, mqPacker, discardDuplicates, combineDuplicatedSelectos ]
-            }
+            test: /\.pug$/,
+            use: [
+              { loader: 'html-loader' },
+              { loader: 'pug-html-loader', options: { basedir: `${__dirname}/src/pug` } }
+            ]
           },
-          { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+          {
+            test: /\.scss$/,
+            use: [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  autoprefixer: { browser: ['last 2 versions', 'edge 16-18'] },
+                  plugins: () => [ autoprefixer, mqPacker, discardDuplicates, combineDuplicatedSelectos ]
+                }
+              },
+              { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+            ]
+          },
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [
+              { loader: 'babel-loader', options: { presets: ['@babel/preset-env' ] } }
+            ]
+          }
         ]
       },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader', options: { presets: ['@babel/preset-env' ] } }
+    
+      plugins: [
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin([
+          { from: './src/img', to: 'assets/img/[name].[ext]' }
+        ]),
+        new ImageminWebpackPlugin({
+          plugins: [imageminJpegRecompress({ quality: 50 })],
+          pngquant: { quality: 50 },
+          svgo: { quality: 50 },
+          gifsicle: { quality: 50 }
+        }),
+        new imageminWebpWebpackPlugin({
+          config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
+        }),
+        new MiniCssExtractPlugin({
+          filename: `assets/css/styles.css?${new Date().getTime()}`
+        }),
+        new PurgecssWebpackPlugin({
+          paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+        }),
+        ...htmlPlugins
+      ]
+    }
+  } else {
+    console.log('procuction...')
+    // production
+    return {
+      entry: {
+        'styles.css.ig': './src/scss/main.scss',
+        'assets/js/scripts.js': './src/es/index.js'
+      },
+    
+      output: {
+        filename: `[name]?${new Date().getTime()}`,
+        publicPath: '/'
+      },
+      
+      module: {
+        rules: [
+          {
+            test: /\.pug$/,
+            use: [
+              { loader: 'html-loader' },
+              { loader: 'pug-html-loader', options: { basedir: `${__dirname}/src/pug` } }
+            ]
+          },
+          {
+            test: /\.scss$/,
+            use: [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  autoprefixer: { browser: ['last 2 versions', 'edge 16-18'] },
+                  plugins: () => [ autoprefixer, mqPacker, discardDuplicates, combineDuplicatedSelectos ]
+                }
+              },
+              { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+            ]
+          },
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [
+              { loader: 'babel-loader', options: { presets: ['@babel/preset-env' ] } }
+            ]
+          }
         ]
-      }
-    ]
-  },
+      },
+    
+      plugins: [
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin([
+          { from: './src/img', to: 'assets/img/[name].[ext]' }
+        ]),
+        new ImageminWebpackPlugin({
+          plugins: [imageminJpegRecompress({ quality: 50 })],
+          pngquant: { quality: 50 },
+          svgo: { quality: 50 },
+          gifsicle: { quality: 50 }
+        }),
+        new imageminWebpWebpackPlugin({
+          config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
+        }),
+        new MiniCssExtractPlugin({
+          filename: `assets/css/styles.css?${new Date().getTime()}`
+        }),
+        new PurgecssWebpackPlugin({
+          paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+        }),
+        ...htmlPlugins
+      ]
+    }
+  }
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([
-      { from: './src/img', to: 'assets/img/[name].[ext]' }
-    ]),
-    new ImageminWebpackPlugin({
-      plugins: [imageminJpegRecompress({ quality: 50 })],
-      pngquant: { quality: 50 },
-      svgo: { quality: 50 },
-      gifsicle: { quality: 50 }
-    }),
-    new imageminWebpWebpackPlugin({
-      config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
-    }),
-    new MiniCssExtractPlugin({
-      filename: `assets/css/styles.css?${new Date().getTime()}`
-    }),
-    new PurgecssWebpackPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    }),
-    ...htmlPlugins
-  ]
+  
 }
 
 module.exports = config
