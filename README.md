@@ -116,13 +116,15 @@ body {
 - [x] es6 structure
 - [ ] develop different behavior depending on the mode prod || dev
   - [ ] development
-    - [ ] pretty html
+    - [x] pretty html with html-beautify-webpack-plugin
     - [x] css pretty with sass expanded
-    - [ ] webpack by default will output dev js
+    - [x] webpack by default will output dev js
+    - [x] No cache busting
   - [ ] production
-    - [ ] minify html
+    - [x] minify html
     - [x] minify css with sass compress
-    - [ ] webpack by defatul will output minify js
+    - [x] webpack by defatul will output minify js
+    - [x] adding cache busting to css and js sources
 - [x] Erase dist folder on every build
 - [x] navbar component
   - [x] pug
@@ -147,7 +149,6 @@ body {
 - [x] adding responsive breakpoints
 - [x] adding respoinsive typography
 - [ ] Adding fluid typography
-- [x] adding cache busting to css and js sources
 - [ ] add a sitemap componentn in pug so it can be generated automatically
 - [ ] open graph implementation
 - [ ] twitter cards

@@ -3,6 +3,7 @@ const
   glob = require('glob'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
+  HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
   CleanWebpackPlugin = require('clean-webpack-plugin'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   ImageminWebpackPlugin = require('imagemin-webpack-plugin').default,
@@ -27,7 +28,10 @@ fs.readdirSync(pugDir).forEach(file => {
     htmlPlugins.push(
       new HtmlWebpackPlugin({
         filename: `index.html`,
-        template: `${pugDir}/${file}`
+        template: `${pugDir}/${file}`,
+        minify: {
+          removeScriptTypeAttributes: true,
+        },
       })
     )
   } else {
@@ -35,7 +39,10 @@ fs.readdirSync(pugDir).forEach(file => {
     htmlPlugins.push(
       new HtmlWebpackPlugin({
         filename: `${file}/index.html`,
-        template: `${pugDir}/${file}/${nestedFile}`
+        template: `${pugDir}/${file}/${nestedFile}`,
+        minify: {
+          removeScriptTypeAttributes: true,
+        },
       })
     )
   }
@@ -44,7 +51,6 @@ fs.readdirSync(pugDir).forEach(file => {
 const config = (env, argv) => {
 
   if (argv.mode != 'production') {
-    console.log('development...')
     // development
     return {
       entry: {
@@ -53,7 +59,7 @@ const config = (env, argv) => {
       },
     
       output: {
-        filename: `[name]?${new Date().getTime()}`,
+        filename: '[name]',
         publicPath: '/'
       },
       
@@ -78,7 +84,7 @@ const config = (env, argv) => {
                   plugins: () => [ autoprefixer, mqPacker, discardDuplicates, combineDuplicatedSelectos ]
                 }
               },
-              { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
+              { loader: 'sass-loader', options: { outputStyle: 'expanded' } }
             ]
           },
           {
@@ -106,16 +112,27 @@ const config = (env, argv) => {
           config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
         }),
         new MiniCssExtractPlugin({
-          filename: `assets/css/styles.css?${new Date().getTime()}`
+          filename: `assets/css/styles.css`
         }),
         new PurgecssWebpackPlugin({
           paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
         }),
-        ...htmlPlugins
+        ...htmlPlugins,
+        new HtmlBeautifyPlugin({
+          config: {
+              html: {
+                  end_with_newline: true,
+                  indent_size: 2,
+                  indent_with_tabs: false,
+                  indent_inner_html: true,
+                  preserve_newlines: true,
+                  unformatted: ['p', 'i', 'b', 'span']
+              }
+          }
+        })
       ]
     }
   } else {
-    console.log('procuction...')
     // production
     return {
       entry: {
@@ -182,7 +199,8 @@ const config = (env, argv) => {
         new PurgecssWebpackPlugin({
           paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
         }),
-        ...htmlPlugins
+        ...htmlPlugins,
+        
       ]
     }
   }
