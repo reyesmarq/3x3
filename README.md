@@ -119,10 +119,10 @@ body {
 - [ ] minify css
 - [ ] minify js
 - [x] Erase dist folder on every build
-- [ ] navbar component
+- [x] navbar component
   - [x] pug
   - [x] scss
-  - [ ] js activating active on current page dinamically
+  - [x] js activating active on current page dinamically
 - [ ] Componentn for responsive images, ig the browser supports webp.
 - [x] add images minifiers
   - [x] png pnquant
@@ -136,13 +136,13 @@ body {
   - [x] css-mqpacker
   - [x] postcss-discard-duplicates
   - [x] postcss-combine-duplicated-selectors
-- [ ] purge css for unused css
-- [ ] documenting what are the postcss plugins implemented
-- [ ] js dom selectors (maybe)
+- [x] purge css for unused css ( still needs more testing )
+- [x] documenting what are the postcss plugins implemented
+- [x] js dom selectors (maybe)
 - [x] adding responsive breakpoints
 - [x] adding respoinsive typography
 - [ ] Adding fluid typography
-- [ ] adding cache busting to css and js sources
+- [x] adding cache busting to css and js sources
 - [ ] add a sitemap componentn in pug so it can be generated automatically
 - [ ] open graph implementation
 - [ ] twitter cards

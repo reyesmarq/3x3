@@ -48,7 +48,7 @@ const config = {
   },
 
   output: {
-    filename: '[name]',
+    filename: `[name]?${new Date().getTime()}`,
     publicPath: '/'
   },
   
@@ -101,7 +101,7 @@ const config = {
       config: [{ test: /\.jpe?g/, options: { quality:  50 } }], strict: true
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/css/styles.css'
+      filename: `assets/css/styles.css?${new Date().getTime()}`
     }),
     new PurgecssWebpackPlugin({
       paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
