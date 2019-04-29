@@ -47,3 +47,11 @@
 //// Therefore when you are about to resolve it, you know where to find it. 
 // ============================================
 @import "hacks/hacks";
+
+.unused {
+  background-color: black;
+}
+
+.active {
+  display: block;
+}

@@ -1,5 +1,6 @@
 const
   fs = require('fs'),
+  glob = require('glob'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   CleanWebpackPlugin = require('clean-webpack-plugin'),
@@ -10,8 +11,13 @@ const
   autoprefixer = require('autoprefixer')
   discardDuplicates =  require('postcss-discard-duplicates'),
   combineDuplicatedSelectos = require('postcss-combine-duplicated-selectors'),
-  mqPacker = require('css-mqpacker')
+  mqPacker = require('css-mqpacker'),
+  PurgecssWebpackPlugin = require('purgecss-webpack-plugin')
 
+const PATHS = {
+  src: `${__dirname}/src`
+}
+  
 let
   htmlPlugins = [],
   pugDir = `${__dirname}/src/pug/content`
@@ -96,6 +102,9 @@ const config = {
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/styles.css'
+    }),
+    new PurgecssWebpackPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
     }),
     ...htmlPlugins
   ]
