@@ -8,6 +8,101 @@ webpack kit for static pages. Compatible with pug, sass and es6.
 
 If the entry point is geenrated in a subfolder of dist, the assets are imported using relative paths such as `../assets/cs/etc.css`. In order to resolve this, used publicPath in ouput object of webpack config.
 
+## Integration of postcss
+
+**Autoprefixer**
+
+allows you to add autoprefixers on the go
+
+**Mqpacker**
+
+merge duplicate mediaqueries
+
+example
+
+**input**
+```css
+@media screen and (min-width: 640px) {
+  :root {
+    font-size: 18px
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .grid {
+    display: grid;
+  }
+}
+```
+
+**output**
+```css
+@media screen and (min-width: 640px) {
+  :root {
+    font-size: 18px
+  }
+
+  .grid {
+    display: flex
+  }
+}
+```
+
+**discard-duplicates**
+
+allows you to merge duplicate rules
+
+example 
+
+*input*
+```css
+
+body {
+  position: sticky;
+}
+
+body {
+  position: sticky;
+  color: black;
+}
+
+```
+*outpu*
+```css
+body {
+  position: sticky;
+  color: black
+}
+```
+
+**combine-duplicated-selectors**
+
+example 
+
+*input*
+```css
+body {
+  color: green;
+}
+.grid {
+  color: blue;
+}
+body {
+  background: red;
+}
+.grid {
+  background: yellow;
+}
+```
+*outpu*
+```css
+body {
+  color: green;
+  background: red;
+}
+```
+
+
 ## Todo
 
 - [x] install webpack
@@ -28,15 +123,20 @@ If the entry point is geenrated in a subfolder of dist, the assets are imported 
   - [x] pug
   - [x] scss
   - [ ] js activating active on current page dinamically
+- [ ] Componentn for responsive images, ig the browser supports webp.
 - [x] add images minifiers
   - [x] png pnquant
   - [x] jpg jpeg-recompress
   - [x] webp
   - [x] svg svgo
   - [x] gif gifsicle
-- [ ] Componentn for responsive images, ig the browser supports webp.
-- [ ] css autoprefixer - postcss
-- [ ] improve sass output - getting css better
+- [x] improve sass output - getting css better by post css
+- [x] Postcss implementation
+  - [x] autoprefixer
+  - [x] css-mqpacker
+  - [x] postcss-discard-duplicates
+  - [x] postcss-combine-duplicated-selectors
+- [ ] purge css for unused css
 - [ ] documenting what are the postcss plugins implemented
 - [ ] js dom selectors (maybe)
 - [x] adding responsive breakpoints

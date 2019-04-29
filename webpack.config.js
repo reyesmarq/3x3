@@ -6,7 +6,11 @@ const
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   ImageminWebpackPlugin = require('imagemin-webpack-plugin').default,
   imageminJpegRecompress = require('imagemin-jpeg-recompress'),
-  imageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
+  imageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin'),
+  autoprefixer = require('autoprefixer')
+  discardDuplicates =  require('postcss-discard-duplicates'),
+  combineDuplicatedSelectos = require('postcss-combine-duplicated-selectors'),
+  mqPacker = require('css-mqpacker')
 
 let
   htmlPlugins = [],
@@ -56,6 +60,13 @@ const config = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
+          {
+            loader: 'postcss-loader',
+            options: {
+              autoprefixer: { browser: ['last 2 versions', 'edge 16-18'] },
+              plugins: () => [ autoprefixer, mqPacker, discardDuplicates, combineDuplicatedSelectos ]
+            }
+          },
           { loader: 'sass-loader', options: { outputStyle: 'compressed' } }
         ]
       },
