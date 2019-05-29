@@ -13,7 +13,8 @@ const
   discardDuplicates =  require('postcss-discard-duplicates'),
   combineDuplicatedSelectos = require('postcss-combine-duplicated-selectors'),
   mqPacker = require('css-mqpacker'),
-  PurgecssWebpackPlugin = require('purgecss-webpack-plugin')
+  PurgecssWebpackPlugin = require('purgecss-webpack-plugin'),
+  CleanFilesPlugin = require('webpack-clean')
 
 const PATHS = {
   src: `${__dirname}/src`
@@ -191,7 +192,7 @@ const config = (env, argv) => {
           paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
         }),
         ...htmlPlugins,
-        
+        new CleanFilesPlugin(['dist/styles.css.ig'])
       ]
     }
   }
