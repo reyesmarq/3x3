@@ -162,6 +162,7 @@ body {
 - [ ] add font-settings map in order to control font-sizes and mizing to capture that map
 - [ ] Typo scale
 - [ ] Improve Readme.md
+- [ ] **Reload on changes**
 
 # typo scale
 
